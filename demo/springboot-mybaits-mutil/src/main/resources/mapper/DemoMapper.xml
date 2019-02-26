@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jokerkiki.demo.dao.DemoConfigDao">
+    <resultMap id="BaseResultMap" type="com.jokerkiki.demo.entity.DemoConfig">
+        <result column="id" property="id"/>
+        <result column="config" property="config"/>
+        <result column="configValue" property="configValue"/>
+    </resultMap>
+
+    <parameterMap id="DemoConfig" type="com.jokerkiki.demo.entity.DemoConfig"/>
+
+    <sql id="Base_Column_List">
+		id, config, configValue
+	</sql>
+
+    <select id="findById" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from s_config
+        where id = #{id}
+    </select>
+
+    <insert id="addConfig" parameterType="com.jokerkiki.demo.entity.DemoConfig">
+        insert into s_config (<include refid="Base_Column_List"/>)
+        values (#{id,#{config},#{configValue})
+    </insert>
+    <update id="updateConfig" parameterType="com.jokerkiki.demo.entity.DemoConfig">
+      update s_config set config = #{config} where id = #{id}
+    </update>
+
+    <delete id="deleteConfig">
+        delete from s_config where id = #{id}
+    </delete>
+</mapper>
